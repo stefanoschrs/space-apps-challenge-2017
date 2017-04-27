@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "agathias": "^0.0.3",
+    "cheerio": "^0.22.0"
+  },
+  "name": "space-apps-challenge-2017",
+  "version": "1.0.0",
+  "description": "NASA Space Apps Challenge 2017",
+  "main": "crawler.js",
+  "repository": "git@github:stefanoschrs/space-apps-challenge-2017.git",
+  "author": "Stefanos Chrs <stefanoschrs@hotmail.com>",
+  "license": "MIT"
+}
