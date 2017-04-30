@@ -7,16 +7,22 @@ const cheerio = require('cheerio')
 const BASE_URL = 'https://2017.spaceappschallenge.org'
 const OUTPUT_FILE = `${__dirname}/README.md`
 
-function createMarkdown (categories) {
-  let text = ''
+function createMarkdown (categories = []) {
+  const headers = [
+    '# NASA Space Apps Challenge 2017\n\n',
+    '> April 29th - 30th\n\n'
+  ]
 
-  text += '# NASA Space Apps Challenge 2017\n\n'
-  text += '> April 29th - 30th\n\n'
+  let text = headers.reduce((text, header) => {
+    text += header;
 
-  categories.forEach((category) => {
-    text += `## ${category.title}\n\n`
+    return text;
+  }, '');
 
-    category.data.forEach((challenge) => {
+  text = categories.reduce((text, category) => {
+    text += `## ${category.title}\n\n`;
+
+    text = category.data.reduce((text, challenge) => {
       text += `### ${challenge.title}\n\n`
 
       if (challenge.statement) {
@@ -25,9 +31,13 @@ function createMarkdown (categories) {
 
       text += `![${challenge.title}](${challenge.banner})\n\n`
 
-      text += `${challenge.description}\n\n`
-    })
-  })
+      text += `${challenge.description}\n\n`;
+
+      return text;
+    }, text);
+
+    return text;
+  }, text);
 
   fs.writeFile(OUTPUT_FILE, text, (err) => {
     if (err) logger.error(err)
